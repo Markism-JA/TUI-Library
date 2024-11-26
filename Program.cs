@@ -10,8 +10,11 @@
         public static void Main(string[] args)
         {
             Console.Clear();
-            int windowHeight = 50;
-            int windowWidth = 200;
+            int windowHeight = 37;
+            int windowWidth = 100;
+            
+            //int windowX = 126; - absolute size of terminal
+            //int windowY = 47; - absolute size of terminal
             Window window = new Window(windowWidth, windowHeight,ConsoleColor.Green);
             
             string[] asciiArt =
@@ -31,24 +34,19 @@
 
             
             window.GridOn = true;
-            window.DrawCentered(asciiArt, 3, ConsoleColor.Black); // Draw ASCII art starting 3 lines from the top
-            window.Render();
-             
+            window.DrawCentered(asciiArt, 3, ConsoleColor.Black);
+
             Thread.Sleep(3000);
-            window.DrawCentered(asciiArt, 8, ConsoleColor.Black);
-            window.Render();
+            window.DrawCentered(welcome, 9, ConsoleColor.Black);
+            window.RenderAll();
+
+            var label1 = new Label("Whatsup!", 20, 3) { X = 30, Y = 23 };
+            window.AddChild(label1);
             
-            Thread.Sleep(30000);
-            window.DrawCentered(asciiArt, 13, ConsoleColor.Black);
-            window.Render();
+            window.RenderAll();
             
-            Thread.Sleep(30000);
-            window.DrawCentered(welcome, 18, ConsoleColor.Black);
-            window.Render();
+            Console.WriteLine($"This is the width {Console.WindowWidth} and height {Console.WindowHeight}" );
             
-            //window.Draw(testContent1,4,3,ConsoleColor.Black);
-            //  window.Render();            
-            // Pause for 5 seconds
             Console.ReadKey();
         }
     }

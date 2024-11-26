@@ -1,6 +1,6 @@
 namespace TUI;
 
-class ContainerWidget : Widgets
+public class ContainerWidget : Widgets
 {
     protected List<Widgets> Children { get; set; } = new List<Widgets>();
 
@@ -17,11 +17,11 @@ class ContainerWidget : Widgets
         Children.Remove(child);
     }
 
-    public override void Render(TerminalBuffer? buffer)
+    public override void AddToBuffer(TerminalBuffer? buffer)
     {
         foreach (var child in Children)
         {
-                
+            child.AddToBuffer(buffer);
         }
     }
 

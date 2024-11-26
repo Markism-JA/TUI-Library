@@ -1,6 +1,6 @@
 namespace TUI;
 
-abstract class Widgets
+public abstract class Widgets
 {
     public int X { get; set; }
     public int Y { get; set; }
@@ -11,5 +11,5 @@ abstract class Widgets
     
     public virtual int GlobalX => (Parent?.GlobalY ?? 0) + X;
     public virtual int GlobalY => (Parent?.GlobalY ?? 0) + Y;
-    public abstract void Render(TerminalBuffer? buffer);
+    public abstract void AddToBuffer(TerminalBuffer? buffer);
 }

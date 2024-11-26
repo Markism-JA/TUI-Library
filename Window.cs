@@ -1,6 +1,6 @@
 namespace TUI
 {
-    public class Window
+    public class Window : ContainerWidget
     {
         public TerminalBuffer Buffer { get; set; }
         private int _x, _y, _width, _height;
@@ -16,10 +16,15 @@ namespace TUI
 
             int terminalWidth = Console.WindowWidth;
 
-            this._x = (terminalWidth - _width) / 2;
+            /*this._x = (terminalWidth - _width) / uncomment if
+             want the window to adapt to the screen size. Nightmare to set
+             layout because of relative window sizing.
+             */
 
-            // must always be 0 because this positioning is relative to the window.
-            this._y = 0; 
+            /*this._y = 0;
+             /sets the vertical position of the box with respect to [+x, +y}
+             "cartesian plane"
+             */ 
 
             
             Buffer = new TerminalBuffer(_width, _height);
@@ -74,8 +79,6 @@ namespace TUI
         
         public void DrawCentered(string[] content, int localStartY = 0, ConsoleColor contentColor = ConsoleColor.White)
         {
-            
-            RenderGrid();
             for (int i = 0; i < content.Length; i++)
             {
                 string line = content[i];
@@ -149,21 +152,24 @@ namespace TUI
             FillWindow();
         }
 
+        public void RenderAll()
+        {
+            foreach (var child in Children)
+            {
+                child.AddToBuffer(Buffer);
+            }
+            AddGrid();  
+            RenderWindows();
+
+        }
+
         // Render the window (and buffer content) to the screen
-        public void Render()
+        public void RenderWindows()
         {
             Buffer.Render();
         }
-
-        // Getter for the buffer (if needed)
-        public TerminalBuffer GetBuffer()
-        {
-            return Buffer;
-        }
-
-
         
-        private void RenderGrid()
+        private void AddGrid()
         {
             if (GridOn)
             {
