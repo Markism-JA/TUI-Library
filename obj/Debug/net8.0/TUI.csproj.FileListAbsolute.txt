@@ -1,0 +1,14 @@
+/mnt/marky-hdd/Documents/Projects/C#/TUI/bin/Debug/net8.0/TUI
+/mnt/marky-hdd/Documents/Projects/C#/TUI/bin/Debug/net8.0/TUI.dll
+/mnt/marky-hdd/Documents/Projects/C#/TUI/bin/Debug/net8.0/TUI.pdb
+/mnt/marky-hdd/Documents/Projects/C#/TUI/obj/Debug/net8.0/TUI.GeneratedMSBuildEditorConfig.editorconfig
+/mnt/marky-hdd/Documents/Projects/C#/TUI/obj/Debug/net8.0/TUI.AssemblyInfoInputs.cache
+/mnt/marky-hdd/Documents/Projects/C#/TUI/obj/Debug/net8.0/TUI.AssemblyInfo.cs
+/mnt/marky-hdd/Documents/Projects/C#/TUI/obj/Debug/net8.0/TUI.csproj.CoreCompileInputs.cache
+/mnt/marky-hdd/Documents/Projects/C#/TUI/obj/Debug/net8.0/TUI.dll
+/mnt/marky-hdd/Documents/Projects/C#/TUI/obj/Debug/net8.0/refint/TUI.dll
+/mnt/marky-hdd/Documents/Projects/C#/TUI/obj/Debug/net8.0/TUI.pdb
+/mnt/marky-hdd/Documents/Projects/C#/TUI/bin/Debug/net8.0/TUI.deps.json
+/mnt/marky-hdd/Documents/Projects/C#/TUI/bin/Debug/net8.0/TUI.runtimeconfig.json
+/mnt/marky-hdd/Documents/Projects/C#/TUI/obj/Debug/net8.0/TUI.genruntimeconfig.cache
+/mnt/marky-hdd/Documents/Projects/C#/TUI/obj/Debug/net8.0/ref/TUI.dll
