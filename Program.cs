@@ -23,6 +23,7 @@
                 "▐▌  █▐▌ ▐▌▐▌   ▐▌   ▐▌     █  ▐▛▚▖▐▌▐▌       ▐▌   ▐▌ ▐▌▐▛▚▞▜▌▐▌   ",
                 "▐▌  █▐▛▀▚▖▐▛▀▀▘ ▝▀▚▖ ▝▀▚▖  █  ▐▌ ▝▜▌▐▌▝▜▌    ▐▌▝▜▌▐▛▀▜▌▐▌  ▐▌▐▛▀▀▘",
                 "▐▙▄▄▀▐▌ ▐▌▐▙▄▄▖▗▄▄▞▘▗▄▄▞▘▗▄█▄▖▐▌  ▐▌▝▚▄▞▘    ▝▚▄▞▘▐▌ ▐▌▐▌  ▐▌▐▙▄▄▖",
+                "                                                                  "
             };
 
             string[] welcome =
@@ -34,18 +35,18 @@
 
             
             window.GridOn = true;
-            window.DrawCentered(asciiArt, 3, ConsoleColor.Black);
+            Title game = new Title(asciiArt, 3, ConsoleColor.White, ConsoleColor.Black, Align.Center);
+            window.AddChild(game);
 
             Thread.Sleep(3000);
-            window.DrawCentered(welcome, 9, ConsoleColor.Black);
-            window.RenderAll();
-
-            var label1 = new Label("Whatsup!", 20, 3) { X = 30, Y = 23 };
-            window.AddChild(label1);
+            Title subtext = new Title(welcome, 9, ConsoleColor.Black, ConsoleColor.Green, Align.Center);
+            window.AddChild(subtext);
             
+            var label1 = new Label("Whatsup!", 20, 3, ConsoleColor.White, ConsoleColor.Black, Align.Center); 
+            window.AddChild(label1);    
             window.RenderAll();
             
-            Console.WriteLine($"This is the width {Console.WindowWidth} and height {Console.WindowHeight}" );
+            //Console.WriteLine($"This is the width {Console.WindowWidth} and height {Console.WindowHeight}" );
             
             Console.ReadKey();
         }

@@ -9,7 +9,7 @@ public abstract class Widgets
 
     public Widgets? Parent{ get; set; }
     
-    public virtual int GlobalX => (Parent?.GlobalY ?? 0) + X;
+    public virtual int GlobalX => (Parent?.GlobalX ?? 0) + X;
     public virtual int GlobalY => (Parent?.GlobalY ?? 0) + Y;
     public abstract void AddToBuffer(TerminalBuffer? buffer);
 }
