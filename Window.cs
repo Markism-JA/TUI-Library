@@ -3,39 +3,25 @@ namespace TUI
     public class Window : ContainerWidget
     {
         public TerminalBuffer Buffer { get; set; }
-        public ConsoleColor BackgroundColor { get; }
         public bool GridOn { get; set; }
+        public bool BorderOn { get; set; }
+        public char Border { get; set; }
+        public ConsoleColor? BorderBackgroundColor { get; set; }
+        public ConsoleColor? BorderForegroundColor { get; set; }
 
-        public Window(int customWidth, int customHeight, ConsoleColor backgroundColor = ConsoleColor.DarkGray, int x = 0, int y = 0)
+        public Window(int? x, int? y, int width, int height, ConsoleColor? backgroundColor = null)
         {
-            this.BackgroundColor = backgroundColor;
-
-            Width = customWidth;
-            Height = customHeight;
-
-            int terminalWidth = Console.WindowWidth;
-            int terminalHeight = Console.WindowHeight;
-            X = x;
-            Y = y;
-
-            /*this._x = (terminalWidth - _width) / uncomment if
-             want the window to adapt to the screen size. Nightmare to set
-             layout because of relative window sizing.
-             */
-
-            /*this._y = 0;
-             /sets the vertical position of the box with respect to [+x, +y}
-             "cartesian plane"
-             */
-            
+            BackgroundColor = backgroundColor;
+            Width = width;
+            Height = height;
+            Console.WindowHeight = height;
+            Console.WindowWidth = width;
+            X = x ?? 0;
+            Y = y ?? 0;
             Buffer = new TerminalBuffer(Width, Height);
-
-            
             FillWindow();
-
         }
 
-        //Calls the update cell method of the Buffer class 
         private void FillWindow()
         {
             for (int i = 0; i < Width; i++)
@@ -47,13 +33,8 @@ namespace TUI
             }
         }
         
-  
-        
-
-        // Move the window to a new position (can be used for manual positioning if needed)
         public void Move(int newX, int newY)
         {
-            // Update position
             this.X = newX;
             this.Y = newY;
             FillWindow();
@@ -65,35 +46,52 @@ namespace TUI
             {
                 child.AddToBuffer(Buffer);
             }
-            AddGrid();  
+            
+            AddGrid();
+            AddBorder();
             RenderWindows();
+            
 
         }
-
-        // Render the window (and buffer content) to the screen
         public void RenderWindows()
         {
             Buffer.Render();
         }
         
-            private void AddGrid()
+        private void AddGrid()
+        {
+            if (GridOn)
             {
-                if (GridOn)
+                // Top Column
+                for (int x = 0; x < Buffer.Width; x++)
                 {
-                    // Render column numbers at the top
-                    for (int x = 0; x < Buffer.Width; x++)
-                    {
-                        char number = (char)('0' + (x % 10)); // Single-digit cycle: 0-9
-                        Buffer.UpdateCell(x, 0, number, ConsoleColor.Yellow, ConsoleColor.Black);
-                    }
+                    char number = (char)('0' + (x % 10)); // Single-digit cycle: 0-9
+                    Buffer.UpdateCell(x, 0, number, ConsoleColor.Yellow, ConsoleColor.Black);
+                }
 
-                    // Render row numbers on the left
-                    for (int y = 0; y < Buffer.Height; y++)
-                    {
-                        char number = (char)('0' + (y % 10)); // Single-digit cycle: 0-9
-                        Buffer.UpdateCell(0, y, number, ConsoleColor.Yellow, ConsoleColor.Black);
-                    }
+                // Left Row
+                for (int y = 0; y < Buffer.Height; y++)
+                {
+                    char number = (char)('0' + (y % 10)); // Single-digit cycle: 0-9
+                    Buffer.UpdateCell(0, y, number, ConsoleColor.Yellow, ConsoleColor.Black);
                 }
             }
+        }
+        private void AddBorder()
+        {
+            if (BorderOn)
+            {
+                for (int x = 0; x < Buffer.Width; x++)
+                {
+                    Buffer.UpdateCell(x, 0, '-', BorderForegroundColor, BorderBackgroundColor);
+                    Buffer.UpdateCell(x, Buffer.Height - 1, '-', BorderForegroundColor, BorderBackgroundColor);
+                }
+                for (int y = 1; y < Buffer.Height - 1; y++)
+                {
+                    Buffer.UpdateCell(0, y, '|', BorderForegroundColor, BorderBackgroundColor);
+                    Buffer.UpdateCell(Buffer.Width - 1, y, '|', BorderForegroundColor, BorderBackgroundColor);
+                }
+            }
+        }
     }
 }

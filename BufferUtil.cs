@@ -2,24 +2,34 @@ namespace TUI;
 
 public class BufferUtil
 {
-    public int GlobalX { get; set; }
-    public int GlobalY { get; set; }
-    public int GlobalWidth { get; set; }
-    public int GlobalHeight { get; set; }
+    //LocalField
+    public int X { get; set; }
+    public int Y { get; set; }
+    public int Width { get; set; }
+    public int Height { get; set; }
+    public ConsoleColor? ForegroundColor { get; set; }
+    public ConsoleColor? BackgroundColor { get; set; }
+    
+    //ParentField
+    public int ParentX { get; set; }
+    public int ParentY { get; set; }
+    public int ParentWidth { get; set; }
+    public int ParentHeight { get; set; }
+    public ConsoleColor? ParentForegroundColor { get; set; }
+    public ConsoleColor? ParentBackgroundColor { get; set; }
+    
     public TerminalBuffer Buffer { get; set; }
-    public ConsoleColor ForegroundColor { get; set; }
-    public ConsoleColor BackgroundColor { get; set; } = ConsoleColor.Green;
 
     public BufferUtil(int x, int y, int width, int height, TerminalBuffer buffer)
     {
-        GlobalX = x;
-        GlobalY = y;
-        GlobalWidth = width;    
-        GlobalHeight = height;
+        X = x;
+        Y = y;
+        ParentWidth = width;    
+        ParentHeight = height;
         Buffer = buffer;
     }
     
-    public void LeftAlignedDraw(string[] content, ConsoleColor background, ConsoleColor contentColor = ConsoleColor.White)
+    public void LeftAlignedDraw(string[] content, ConsoleColor? background, ConsoleColor? contentColor = ConsoleColor.White)
     {
         BackgroundColor = background;
         for (int i = 0; i < content.Length; i++)
@@ -27,19 +37,19 @@ public class BufferUtil
             string line = content[i];
 
             // Ensure the content fits within the height of the defined region
-            if (GlobalY + i >= GlobalY + GlobalHeight || GlobalY + i < GlobalY) continue;
+            if (Y + i >= Y + ParentHeight || Y + i < Y) continue;
     
             // Clip content if it exceeds the width of the defined region
-            int x = GlobalX;  // Use GlobalX as the starting x-coordinate
-            if (x + line.Length > GlobalX + GlobalWidth)
+            int x = X;  // Use GlobalX as the starting x-coordinate
+            if (x + line.Length > X + ParentWidth)
             {
-                line = line.Substring(0, GlobalX + GlobalWidth - x); // Clip line if too wide
+                line = line.Substring(0, X + ParentWidth - x); // Clip line if too wide
             }
 
             for (int j = 0; j < line.Length; j++)
             {
                 int globalX = x + j;
-                int globalY = GlobalY + i;
+                int globalY = Y + i;
 
                 // Update the buffer cell with the content
                 Buffer.UpdateCell(globalX, globalY, line[j], contentColor, BackgroundColor);
@@ -47,7 +57,7 @@ public class BufferUtil
         }
     }
     
-    public void CenterAlignedDraw(string[] content, ConsoleColor contentColor = ConsoleColor.White, ConsoleColor background = ConsoleColor.Green)
+    public void CenterAlignedDraw(string[] content, ConsoleColor? contentColor = null, ConsoleColor? background = null)
     {
         BackgroundColor = background;
         for (int i = 0; i < content.Length; i++)
@@ -55,21 +65,21 @@ public class BufferUtil
             string line = content[i];
 
             // Calculate centered X position within the GlobalWidth range, starting from GlobalX
-            int x = GlobalX + (GlobalWidth - line.Length) / 2;
+            int x = X + (ParentWidth - line.Length) / 2;
         
             // Ensure content fits within the height of the defined region
-            if (GlobalY + i < GlobalY || GlobalY + i >= GlobalY + GlobalHeight) continue;
+            if (Y + i < Y || Y + i >= Y + ParentHeight) continue;
 
             // Clip content if it exceeds the width of the defined region
-            if (x + line.Length > GlobalX + GlobalWidth)
+            if (x + line.Length > X + ParentWidth)
             {
-                line = line.Substring(0, GlobalX + GlobalWidth - x); // Clip line if too wide
+                line = line.Substring(0, X + ParentWidth - x); // Clip line if too wide
             }
 
             for (int j = 0; j < line.Length; j++)
             {
                 int globalX = x + j;
-                int globalY = GlobalY + i;
+                int globalY = Y + i;
 
                 // Update the buffer cell with the content
                 Buffer.UpdateCell(globalX, globalY, line[j], contentColor, BackgroundColor);

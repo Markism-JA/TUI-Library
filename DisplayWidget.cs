@@ -3,8 +3,6 @@ namespace TUI;
 public abstract class DisplayWidget : Widgets
 {
     public string[] Content { get; set; } // The actual rendered text
-    public ConsoleColor ForegroundColor { get; set; }
-    public ConsoleColor BackgroundColor { get; set; } = ConsoleColor.Green;
     public Align align {get;set;}
     
     public override void AddToBuffer(TerminalBuffer? buffer)

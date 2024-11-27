@@ -17,7 +17,7 @@ public class Label : DisplayWidget
         Height = Content.Length;
 
         // Set default colors if not provided
-        ForegroundColor = foregroundColor ?? ConsoleColor.White;
+        ForegroundColor = foregroundColor;
         BackgroundColor = backgroundColor ?? ConsoleColor.Black;
         this.align = align ?? Align.Left;
     }
