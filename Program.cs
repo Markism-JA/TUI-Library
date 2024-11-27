@@ -34,7 +34,7 @@
             };
 
             
-            window.GridOn = false;
+            window.GridOn = true;
             Title game = new Title(asciiArt, 3, ConsoleColor.Black, ConsoleColor.Green, Align.Center);
             window.AddChild(game);  
             Title subtext = new Title(welcome, 9, ConsoleColor.Black, ConsoleColor.Green, Align.Center);

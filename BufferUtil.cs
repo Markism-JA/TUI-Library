@@ -1,6 +1,6 @@
 namespace TUI;
 
-public class BufferAdd
+public class BufferUtil
 {
     public int GlobalX { get; set; }
     public int GlobalY { get; set; }
@@ -10,7 +10,7 @@ public class BufferAdd
     public ConsoleColor ForegroundColor { get; set; }
     public ConsoleColor BackgroundColor { get; set; } = ConsoleColor.Green;
 
-    public BufferAdd(int x, int y, int width, int height, TerminalBuffer buffer)
+    public BufferUtil(int x, int y, int width, int height, TerminalBuffer buffer)
     {
         GlobalX = x;
         GlobalY = y;

@@ -11,15 +11,15 @@ public abstract class DisplayWidget : Widgets
     {
         if (buffer == null) return;
 
-        BufferAdd add = new BufferAdd(GlobalX, GlobalY, GlobalWidth, GlobalHeight, buffer);
+        BufferUtil util = new BufferUtil(X, Y, ParentWidth, ParentHeight, buffer);
 
         switch (align)
         {
             case Align.Left:
-                add.LeftAlignedDraw( Content, BackgroundColor, ForegroundColor);
+                util.LeftAlignedDraw( Content, BackgroundColor, ForegroundColor);
                 break;
             case Align.Center:
-                add.CenterAlignedDraw(Content, ForegroundColor, BackgroundColor);
+                util.CenterAlignedDraw(Content, ForegroundColor, BackgroundColor);
                 break;
             case Align.Right:
                 // Right-aligned draw logic can be added if needed.
