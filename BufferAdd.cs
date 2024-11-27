@@ -18,11 +18,6 @@ public class BufferAdd
         GlobalHeight = height;
         Buffer = buffer;
     }
-
-    public BufferAdd(TerminalBuffer buffer)
-    {
-        Buffer = buffer;
-    }
     
     public void LeftAlignedDraw(string[] content, ConsoleColor background, ConsoleColor contentColor = ConsoleColor.White)
     {

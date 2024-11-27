@@ -56,8 +56,6 @@ namespace TUI
             // Update position
             this.X = newX;
             this.Y = newY;
-
-            // Redraw the window with the new position
             FillWindow();
         }
 

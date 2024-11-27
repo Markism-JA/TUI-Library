@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TUI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+16ea752a4a33dc29de0849e07c99838dbd5c0099")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d64e8a3c7f4d5612d2fd657a2779e94b23905df5")]
 [assembly: System.Reflection.AssemblyProductAttribute("TUI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TUI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
