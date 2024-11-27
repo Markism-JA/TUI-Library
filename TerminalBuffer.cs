@@ -63,17 +63,17 @@ namespace TUI
         }
 
         // Method to update multiple cells in the off-screen buffer
-        public void UpdateMultipleCells(IEnumerable<(int x, int y, char character, ConsoleColor? foreground, ConsoleColor? background)> cells)
+        /*public void UpdateMultipleCells(IEnumerable<(int x, int y, char character, ConsoleColor? foreground, ConsoleColor? background)> cells)
         {
             foreach (var (x, y, character, foreground, background) in cells)
             {
                 UpdateCell(x, y, character, foreground ?? ConsoleColor.Gray, background ?? ConsoleColor.Black); 
                 // Use default colors if not specified
             }
-        }
+        }*/
 
         // Method to render a specific cell in the buffer
-        public void RenderCell(int x, int y)
+        /*public void RenderCell(int x, int y)
         {
             if (x >= 0 && y >= 0 && x < _buffer.GetLength(1) && y < _buffer.GetLength(0))
             {
@@ -84,9 +84,13 @@ namespace TUI
                 Console.Write(cell.Character);
                 Console.ResetColor();   
             }
-        }
+        }*/
+        
+        /*
+         * Specific rendering of widgets is handled by individual widgets class that calls to the buffer's UpdateCell Method.
+         */
 
-        /*Method to render the entire screen (render all cells). Note because of flag only the cell
+        /*Method to render the entire buffer (render all cells). Note because of flag only the cell
          *that needs rendering is rendered.
          */
         public void Render()

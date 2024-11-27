@@ -34,16 +34,19 @@
             };
 
             
-            window.GridOn = true;
+            window.GridOn = false;
             Title game = new Title(asciiArt, 3, ConsoleColor.White, ConsoleColor.Black, Align.Center);
             window.AddChild(game);
 
             Thread.Sleep(3000);
             Title subtext = new Title(welcome, 9, ConsoleColor.Black, ConsoleColor.Green, Align.Center);
             window.AddChild(subtext);
+            window.RenderAll();
+
             
-            var label1 = new Label("Whatsup!", 20, 3, ConsoleColor.White, ConsoleColor.Black, Align.Center); 
+            var label1 = new Label("Whatsup!", 20, 22, ConsoleColor.White, ConsoleColor.Black, Align.Center); 
             window.AddChild(label1);    
+            Thread.Sleep(10000);
             window.RenderAll();
             
             //Console.WriteLine($"This is the width {Console.WindowWidth} and height {Console.WindowHeight}" );

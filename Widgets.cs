@@ -8,7 +8,8 @@ public abstract class Widgets
     public int Height { get; set; }
 
     public Widgets? Parent{ get; set; }
-    
+    public virtual int GlobalWidth => Parent?.Width ?? 0;
+    public virtual int GlobalHeight => Parent?.Height ?? 0;
     public virtual int GlobalX => (Parent?.GlobalX ?? 0) + X;
     public virtual int GlobalY => (Parent?.GlobalY ?? 0) + Y;
     public abstract void AddToBuffer(TerminalBuffer? buffer);
