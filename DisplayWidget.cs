@@ -8,21 +8,32 @@ public abstract class DisplayWidget : Widgets
     public override void AddToBuffer(TerminalBuffer? buffer)
     {
         if (buffer == null) return;
-
-        BufferUtil util = new BufferUtil(X, Y, ParentWidth, ParentHeight, buffer);
+        BufferUtil util = new BufferUtil(X, Y, ParentCoordinateX, ParentCoordinateY, Width, Height, ParentWidth,
+            ParentHeight, ForegroundColor, BackgroundColor, ParentForegroundColor, ParentBackgroundColor, buffer);
 
         switch (align)
         {
             case Align.Left:
-                util.LeftAlignedDraw( Content, BackgroundColor, ForegroundColor);
+                util.LeftAlignedDraw(Content);
                 break;
             case Align.Center:
-                util.CenterAlignedDraw(Content, ForegroundColor, BackgroundColor);
+                util.CenterAlignedDraw(Content);
                 break;
             case Align.Right:
-                // Right-aligned draw logic can be added if needed.
+                //ToBeAdded
                 break;
         }
     }
+
+    public override void RemoveFromBuffer(TerminalBuffer? buffer)
+    {
+        // Console.WriteLine("Removing from the buffer is being called");
+        if (buffer == null) return;
+        BufferUtil util = new BufferUtil(X, Y, ParentCoordinateX, ParentCoordinateY, Width, Height, ParentWidth,
+            ParentHeight, ForegroundColor, BackgroundColor, ParentForegroundColor, ParentBackgroundColor, buffer);
+        
+        util.EraseFromBuffer(Content, align);
+    }
+
 
 }

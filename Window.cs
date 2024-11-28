@@ -42,17 +42,33 @@ namespace TUI
 
         public void RenderAll()
         {
-            foreach (var child in Children)
+            foreach (var child in Children.ToList())
             {
-                child.AddToBuffer(Buffer);
+                if (child.IsRemoved)
+                {
+                    // Console.WriteLine("child.isremoved is being run");
+                    child.RemoveFromBuffer(Buffer);
+                    child.Parent = null;
+                    Children.Remove(child);
+                }else if (child.IsVisible)
+                {
+                    // Console.WriteLine("child.is visible is being run");
+                    child.AddToBuffer(Buffer);
+                }
+                else
+                {
+                    // Console.WriteLine("else is being run");
+                    child.RemoveFromBuffer(Buffer);
+
+                }
             }
             
             AddGrid();
             AddBorder();
             RenderWindows();
-            
-
         }
+        
+        
         public void RenderWindows()
         {
             Buffer.Render();

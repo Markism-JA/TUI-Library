@@ -8,13 +8,15 @@
         {
             child.Parent = this;
             Children.Add(child);
+            child.IsRemoved = false;
         }
             
         public void RemoveChild(Widgets child)
-
         {
-            child.Parent = this;
-            Children.Remove(child);
+            if (Children.Contains(child))
+            {
+                child.IsRemoved = true;
+            }
         }
 
         public override void AddToBuffer(TerminalBuffer? buffer)
@@ -22,6 +24,14 @@
             foreach (var child in Children)
             {
                 child.AddToBuffer(buffer);
+            }
+        }
+
+        public override void RemoveFromBuffer(TerminalBuffer? buffer)
+        {
+            foreach (var child in Children)
+            {
+                child.RemoveFromBuffer(buffer);
             }
         }
 

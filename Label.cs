@@ -7,7 +7,7 @@ public class Label : DisplayWidget
     {
         // Add spaces for padding around the text
         Content = new[] { " " + text + " " };
-
+        X = x;
         Y = y;
 
         // Calculate the Width as the length of the longest string in Content

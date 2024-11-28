@@ -2,9 +2,9 @@ namespace TUI
 {
     public class TerminalBuffer
     {
-        private Cell[,] _buffer;  // 2D grid of cells
-        private Cell[,] _offScreenBuffer; // Records cell changes to bulk render
-        private bool[,] _renderFlags;  // Flags to indicate if a cell needs rendering
+        private Cell[,] _buffer;
+        private Cell[,] _offScreenBuffer;
+        private bool[,] _renderFlags;
         public int Width { get; private set; }
         public int Height { get; private set; }
 
@@ -16,11 +16,11 @@ namespace TUI
             Width = width;
             Height = height;
             
+            
             for (int i = 0; i < height; i++)
             {
                 for (int j = 0; j < width; j++)
                 {
-                    // Initialize both buffers with default cell values
                     _buffer[i, j] = new Cell
                     {
                         Character = ' ',  
@@ -41,7 +41,6 @@ namespace TUI
             }
         }
 
-        // Method to update a specific cell in the off-screen buffer
         public void UpdateCell(int x, int y, char character, ConsoleColor? foreground, ConsoleColor? background)
         {
             if (x >= 0 && y >= 0 && x < _buffer.GetLength(1) && y < _buffer.GetLength(0))
@@ -60,25 +59,15 @@ namespace TUI
                 Console.WriteLine("Error: Attempted to update a cell outside the buffer's bounds.");
             }
         }
-
-        // Method to update multiple cells in the off-screen buffer
-        /*public void UpdateMultipleCells(IEnumerable<(int x, int y, char character, ConsoleColor? foreground, ConsoleColor? background)> cells)
-        {
-            foreach (var (x, y, character, foreground, background) in cells)
-            {
-                UpdateCell(x, y, character, foreground ?? ConsoleColor.Gray, background ?? ConsoleColor.Black); 
-                // Use default colors if not specified
-            }
-        }*/
         
         public void Render()
         {
             // Iterate over the buffer and render only cells that need to be rendered
-            for (int i = 0; i < _buffer.GetLength(0); i++)  // Iterate over rows
+            for (int i = 0; i < _buffer.GetLength(0); i++) //rows
             {
-                for (int j = 0; j < _buffer.GetLength(1); j++)  // Iterate over columns
+                for (int j = 0; j < _buffer.GetLength(1); j++)  //columns
                 {
-                    if (_renderFlags[i, j]) // Render only if the cell is marked for rendering
+                    if (_renderFlags[i, j]) // Render marked cell
                     {
                         var cell = _offScreenBuffer[i, j];  // Get the cell from the off-screen buffer
                         Console.SetCursorPosition(j, i);  // Move the cursor to the appropriate position

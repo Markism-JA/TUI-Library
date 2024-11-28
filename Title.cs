@@ -2,11 +2,11 @@ namespace TUI;
 
 public class Title : DisplayWidget
 {
-    public Title(string[] text, int y, ConsoleColor? foregroundColor = null, ConsoleColor? backgroundColor = null, Align? align = null, int x = 0)
+    public Title(string[] text, int y, int? x = null, ConsoleColor? foregroundColor = null, ConsoleColor? backgroundColor = null, Align? align = null)
     {
         Content = text;
         Y = y;
-        X = x;
+        X = x ?? 0;
         ForegroundColor = foregroundColor;
         BackgroundColor = backgroundColor;
         this.align = align ?? Align.Left;
