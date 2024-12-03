@@ -2,8 +2,8 @@ namespace TUI;
 
 public abstract class DisplayWidget : Widgets
 {
-    public string[] Content { get; set; } // The actual rendered text
-    public Align align {get;set;}
+    public string[] Content { get; set; } 
+    public Align align {get; set;}
     
     public override void AddToBuffer(TerminalBuffer? buffer)
     {

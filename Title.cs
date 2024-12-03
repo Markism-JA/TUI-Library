@@ -2,7 +2,7 @@ namespace TUI;
 
 public class Title : DisplayWidget
 {
-    public Title(string[] text, int y, int? x = null, ConsoleColor? foregroundColor = null, ConsoleColor? backgroundColor = null, Align? align = null)
+    public Title(string[] text, int? x, int y, ConsoleColor? foregroundColor = null, ConsoleColor? backgroundColor = null, Align? align = null)
     {
         Content = text;
         Y = y;

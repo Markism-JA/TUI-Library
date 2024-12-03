@@ -5,7 +5,8 @@ namespace TUI
         public TerminalBuffer Buffer { get; set; }
         public bool GridOn { get; set; }
         public bool BorderOn { get; set; }
-        public char Border { get; set; }
+        public char BorderHorizontal { get; set; } = '-';
+        public char BorderVertical { get; set; } = '|';
         public ConsoleColor? BorderBackgroundColor { get; set; }
         public ConsoleColor? BorderForegroundColor { get; set; }
 
@@ -99,13 +100,13 @@ namespace TUI
             {
                 for (int x = 0; x < Buffer.Width; x++)
                 {
-                    Buffer.UpdateCell(x, 0, '-', BorderForegroundColor, BorderBackgroundColor);
-                    Buffer.UpdateCell(x, Buffer.Height - 1, '-', BorderForegroundColor, BorderBackgroundColor);
+                    Buffer.UpdateCell(x, 0, BorderHorizontal, BorderForegroundColor, BorderBackgroundColor);
+                    Buffer.UpdateCell(x, Buffer.Height - 1, BorderHorizontal, BorderForegroundColor, BorderBackgroundColor);
                 }
                 for (int y = 1; y < Buffer.Height - 1; y++)
                 {
-                    Buffer.UpdateCell(0, y, '|', BorderForegroundColor, BorderBackgroundColor);
-                    Buffer.UpdateCell(Buffer.Width - 1, y, '|', BorderForegroundColor, BorderBackgroundColor);
+                    Buffer.UpdateCell(0, y, BorderVertical, BorderForegroundColor, BorderBackgroundColor);
+                    Buffer.UpdateCell(Buffer.Width - 1, y, BorderVertical, BorderForegroundColor, BorderBackgroundColor);
                 }
             }
         }
