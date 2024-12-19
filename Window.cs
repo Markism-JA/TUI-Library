@@ -2,13 +2,15 @@ namespace TUI
 {
     public class Window : ContainerWidget
     {
-        public TerminalBuffer Buffer { get; set; }
+        public TerminalBuffer Buffer { get; set; } 
         public bool GridOn { get; set; }
         public bool BorderOn { get; set; }
         public char BorderHorizontal { get; set; } = '-';
         public char BorderVertical { get; set; } = '|';
         public ConsoleColor? BorderBackgroundColor { get; set; }
         public ConsoleColor? BorderForegroundColor { get; set; }
+        public List<Window> ChildWindows { get; set; } = new List<Window>();
+
 
         public Window(int? x, int? y, int width, int height, ConsoleColor? backgroundColor = null)
         {
@@ -23,7 +25,7 @@ namespace TUI
             FillWindow();
         }
 
-        private void FillWindow()
+        protected void FillWindow()
         {
             for (int i = 0; i < Width; i++)
             {
@@ -33,68 +35,57 @@ namespace TUI
                 }
             }
         }
-        
-        public void Move(int newX, int newY)
-        {
-            this.X = newX;
-            this.Y = newY;
-            FillWindow();
-        }
 
-        public void RenderAll()
+        public virtual void RenderAll()
         {
             foreach (var child in Children.ToList())
             {
                 if (child.IsRemoved)
                 {
-                    // Console.WriteLine("child.isremoved is being run");
                     child.RemoveFromBuffer(Buffer);
                     child.Parent = null;
                     Children.Remove(child);
-                }else if (child.IsVisible)
+                }
+                else if (child.IsVisible)
                 {
-                    // Console.WriteLine("child.is visible is being run");
                     child.AddToBuffer(Buffer);
                 }
                 else
                 {
-                    // Console.WriteLine("else is being run");
                     child.RemoveFromBuffer(Buffer);
-
                 }
             }
-            
+
+            foreach (var childWindow in ChildWindows)
+            {
+                childWindow.RenderAll(); 
+            }
+
             AddGrid();
             AddBorder();
-            RenderWindows();
+
+            Buffer.Render(); //Calls the render method of the buffer
         }
-        
-        
-        public void RenderWindows()
-        {
-            Buffer.Render();
-        }
-        
-        private void AddGrid()
+
+        protected void AddGrid()
         {
             if (GridOn)
             {
-                // Top Column
                 for (int x = 0; x < Buffer.Width; x++)
                 {
-                    char number = (char)('0' + (x % 10)); // Single-digit cycle: 0-9
+                    char number = (char)('0' + (x % 10)); 
                     Buffer.UpdateCell(x, 0, number, ConsoleColor.Yellow, ConsoleColor.Black);
                 }
 
-                // Left Row
                 for (int y = 0; y < Buffer.Height; y++)
                 {
-                    char number = (char)('0' + (y % 10)); // Single-digit cycle: 0-9
+                    char number = (char)('0' + (y % 10)); 
                     Buffer.UpdateCell(0, y, number, ConsoleColor.Yellow, ConsoleColor.Black);
                 }
             }
         }
-        private void AddBorder()
+
+        protected void AddBorder()
         {
             if (BorderOn)
             {
@@ -107,6 +98,21 @@ namespace TUI
                 {
                     Buffer.UpdateCell(0, y, BorderVertical, BorderForegroundColor, BorderBackgroundColor);
                     Buffer.UpdateCell(Buffer.Width - 1, y, BorderVertical, BorderForegroundColor, BorderBackgroundColor);
+                }
+            }
+        }
+
+        public void ReconcileChildBuffer(TerminalBuffer childBuffer, int offsetX, int offsetY)
+        {
+            for (int x = 0; x < childBuffer.Width; x++)
+            {
+                for (int y = 0; y < childBuffer.Height; y++)
+                {
+                    var cell = childBuffer.GetCell(x, y);
+                    if (cell != null)
+                    {
+                        Buffer.UpdateCell(x + offsetX, y + offsetY, cell.Character, cell.ForegroundColor, cell.BackgroundColor);
+                    }
                 }
             }
         }

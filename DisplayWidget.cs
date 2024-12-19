@@ -27,7 +27,6 @@ public abstract class DisplayWidget : Widgets
 
     public override void RemoveFromBuffer(TerminalBuffer? buffer)
     {
-        // Console.WriteLine("Removing from the buffer is being called");
         if (buffer == null) return;
         BufferUtil util = new BufferUtil(X, Y, ParentCoordinateX, ParentCoordinateY, Width, Height, ParentWidth,
             ParentHeight, ForegroundColor, BackgroundColor, ParentForegroundColor, ParentBackgroundColor, buffer);

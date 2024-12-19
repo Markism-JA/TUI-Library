@@ -22,7 +22,9 @@ public class BufferUtil
     
     public int MaxCenterX { get; set;  }
 
-    public BufferUtil(int x, int y, int parentX, int parentY, int width, int height, int parentWidth, int parentHeight, ConsoleColor? foreground, ConsoleColor? background, ConsoleColor? parentForeground, ConsoleColor? parentBackground, TerminalBuffer buffer)
+    public BufferUtil(int x, int y, int parentX, int parentY, int width, int height, int parentWidth, int parentHeight,
+        ConsoleColor? foreground, ConsoleColor? background, ConsoleColor? parentForeground,
+        ConsoleColor? parentBackground, TerminalBuffer buffer)
     {
         // localValuesSet
         X = x;

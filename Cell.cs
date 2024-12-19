@@ -1,6 +1,6 @@
 namespace TUI;
 
-class Cell
+public class Cell
 {
     public char Character { get; set; }
     public ConsoleColor? ForegroundColor { get; set; }
